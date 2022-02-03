@@ -70,11 +70,6 @@ FROM
     job j ON j.id = e.fk_job_id
 GROUP BY e.id; 
 
--- using implicit join
-select concat(e.firstname, '', e.lastname) as name, d.name as department, c.name as country, j.name as job from
-employee e, department d, country c, job j where d.id = e.fk_department_id and d.fk_country_id = c.id and 
-j.id = e.fk_job_id group by e.id;
-
 -- Get 2nd highest salary of the employee
 select * from employee group by salary order by  salary desc limit 1, 1;
 
