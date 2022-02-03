@@ -71,7 +71,7 @@ FROM
 GROUP BY e.id; 
 
 -- Get 2nd highest salary of the employee
-select * from employee group by salary order by salary limit 3, 1;
+select * from employee group by salary order by  salary desc limit 1, 1;
 
 -- Get all job name and department name in single query
 select name from job union all select name from department; 
