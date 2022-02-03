@@ -39,6 +39,7 @@ insert into employee(id, first_name, last_name, age, mobile_number, address) val
 insert into employee(id, first_name, last_name, age, mobile_number, address) values (3, 'Shivang', 'Gohel', 21, 7043305192, "185 - Arbuda Nagar");
 insert into employee(id, first_name, last_name, age, mobile_number, address) values (4, 'Amit', 'Chavda', 21, 9754376281, "65 - Kadi");
 insert into employee(id, first_name, last_name, age, mobile_number, address) values (5, 'Ashok', 'Patel', 22, 8472930716, "45 - Junagadh");
+insert into employee(id, first_name, last_name, age, mobile_number, address) values (6, 'Himanshu', 'Bhavsar', 21, 9357209723, "218 - Bapunagar");
 
 insert into employee_salary(id, salary, date, fk_employee_id) values  (1, 5000, '2001-02-20', 1);
 insert into employee_salary(id, salary, date, fk_employee_id) values (2, 7000, '2001-03-20', 1);
@@ -52,6 +53,8 @@ insert into employee_salary(id, salary, date, fk_employee_id) values (9, 10000, 
 insert into employee_salary(id, salary, date, fk_employee_id) values (10, 10000, '2000-07-13',5);
 insert into employee_salary(id, salary, date, fk_employee_id) values (11, 12000, '2000-08-13', 5);
 insert into employee_salary(id, salary, date, fk_employee_id) values (12, 14000, '2000-09-13', 5);
+insert into employee_salary(id, salary, date, fk_employee_id) values (13, 13000, '2000-04-18', 6);
+insert into employee_salary(id, salary, date, fk_employee_id) values (14, 15000, '2000-05-18', 6);
 																
 insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (1, 1, 101);
 insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (2, 1, 102);
