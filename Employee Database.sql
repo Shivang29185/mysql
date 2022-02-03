@@ -107,5 +107,5 @@ select concat(e.first_name,' ', e.last_name)As Name, es.salary from employee e, 
 -- Create a select query to get employee name, total salary of employee, hobby name(comma-separated - you need to use subquery for hobby name).
 select concat(e.first_name,' ', e.last_name)as Name, sum(es.salary) as total ,
 (select group_concat( distinct h.name) from employee_hobby eh, hobby h where eh.fk_hobby_id = h.id and 
-eh.fk_employee_id = e.id group by e.id)as hobbies from employee e left join employee_salary es on 
+eh.fk_employee_id = e.id)as hobbies from employee e left join employee_salary es on 
 e.id = es.fk_employee_id group by e.id;
