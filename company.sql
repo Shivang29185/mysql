@@ -56,7 +56,7 @@ values (5, 'Shivang', 'Gohel', 'shivangbgohel@gmail.com', 24000, 5, 5);
 
 -- get name (firstname + lastname) with department name, country name, job name
 SELECT 
-    CONCAT(e.firstname, '', e.lastname) AS name,
+    CONCAT(e.firstname, ' ', e.lastname) AS name,
     d.name AS department,
     c.name AS country,
     j.name AS job
