@@ -53,8 +53,8 @@ insert into employee_salary(id, salary, date, fk_employee_id) values (9, 10000, 
 insert into employee_salary(id, salary, date, fk_employee_id) values (10, 10000, '2000-07-13',5);
 insert into employee_salary(id, salary, date, fk_employee_id) values (11, 12000, '2000-08-13', 5);
 insert into employee_salary(id, salary, date, fk_employee_id) values (12, 14000, '2000-09-13', 5);
-insert into employee_salary(id, salary, date, fk_employee_id) values (13, 13000, '2000-04-18', 6);
-insert into employee_salary(id, salary, date, fk_employee_id) values (14, 15000, '2000-05-18', 6);
+insert into employee_salary(id, salary, date, fk_employee_id) values (13, 0, '2000-05-18', 6);
+
 																
 insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (1, 1, 101);
 insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (2, 1, 102);
@@ -66,6 +66,8 @@ insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (7, 3, 103);
 insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (8, 4, 107);
 insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (9, 4, 104);
 insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (10, 5, 102);
+insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (11, 5, 106);
+insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (12, 6, 106);
 
 -- Updating tables data
 update hobby set name = 'Dancing, Writing books' where id = 102;
@@ -101,6 +103,7 @@ select concat(first_name,last_name) as Name from employee union select name from
 select concat(e.first_name,' ', e.last_name)As Name, es.salary from employee e, employee_salary es where  e.id = es.fk_employee_id group by e.id;
 
 -- Create a select query to get employee name, total salary of employee, hobby name(comma-separated - you need to use subquery for hobby name).
-select concat(e.first_name,' ', e.last_name)as Name,sum(es.salary)as total,(select group_concat( distinct h.name) 
-from employee_hobby eh , hobby h where eh.fk_hobby_id = h.id and eh.fk_employee_id = e.id group by e.id)as hobbies 
-from employee e, employee_salary es where e.id = es.fk_employee_id group by e.id;
+select concat(e.first_name,' ', e.last_name)as Name,if(sum(es.salary) =0 , 0.00 , sum(es.salary)) as total ,
+(select group_concat( distinct h.name) from employee_hobby eh , hobby h where eh.fk_hobby_id = h.id and 
+eh.fk_employee_id = e.id group by e.id)as hobbies from employee e, employee_salary es where 
+e.id = es.fk_employee_id group by e.id;
