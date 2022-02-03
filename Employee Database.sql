@@ -54,6 +54,8 @@ insert into employee_salary(id, salary, date, fk_employee_id) values (10, 10000,
 insert into employee_salary(id, salary, date, fk_employee_id) values (11, 12000, '2000-08-13', 5);
 insert into employee_salary(id, salary, date, fk_employee_id) values (12, 14000, '2000-09-13', 5);
 insert into employee_salary(id, salary, date, fk_employee_id) values (13, 0, '2000-05-18', 6);
+insert into employee_salary(id, salary, date, fk_employee_id) values (14, 14000, '2000-06-18', 6);
+
 
 																
 insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (1, 1, 101);
@@ -75,7 +77,7 @@ update employee set first_name = 'Abhay', last_name = 'Pansuriya' where id = 5;
 update employee_salary set  salary = '9000' where id = 3;
 
 -- Deleting specified data
-delete from employee_salary where id in (4, 5) ;
+delete from employee_salary where id in (14) ;
 delete from employee_hobby where id in  (4 , 5);
 delete from hobby where id in (104, 105);
 delete from employee where id in (4, 5);
@@ -103,7 +105,7 @@ select concat(first_name,last_name) as Name from employee union select name from
 select concat(e.first_name,' ', e.last_name)As Name, es.salary from employee e, employee_salary es where  e.id = es.fk_employee_id group by e.id;
 
 -- Create a select query to get employee name, total salary of employee, hobby name(comma-separated - you need to use subquery for hobby name).
-select concat(e.first_name,' ', e.last_name)as Name,if(sum(es.salary) =0 , 0.00 , sum(es.salary)) as total ,
-(select group_concat( distinct h.name) from employee_hobby eh , hobby h where eh.fk_hobby_id = h.id and 
-eh.fk_employee_id = e.id group by e.id)as hobbies from employee e, employee_salary es where 
+select concat(e.first_name,' ', e.last_name)as Name, sum(es.salary) as total ,
+(select group_concat( distinct h.name) from employee_hobby eh, hobby h where eh.fk_hobby_id = h.id and 
+eh.fk_employee_id = e.id group by e.id)as hobbies from employee e left join employee_salary es on 
 e.id = es.fk_employee_id group by e.id;
