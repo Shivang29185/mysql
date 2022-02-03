@@ -99,13 +99,26 @@ select * from employee_salary;
 select * from employee_hobby;
 
 -- Create a select single query to get all employee name, hobby_name in single column
-select concat(first_name,last_name) as Name from employee union select name from hobby;
+select concat(first_name, '',last_name)as name from employee union select name from hobby;
 
 -- Create a select query to get employee name, his/her employee_salary
-select concat(e.first_name,' ', e.last_name)As Name, es.salary from employee e, employee_salary es where  e.id = es.fk_employee_id group by e.id;
+select concat(e.first_name, ' ', e.last_name) as name, es.salary from employee e, employee_salary es where 
+e.id = es.fk_employee_id group by e.id;
 
 -- Create a select query to get employee name, total salary of employee, hobby name(comma-separated - you need to use subquery for hobby name).
-select concat(e.first_name,' ', e.last_name)as Name, sum(es.salary) as total ,
-(select group_concat( distinct h.name) from employee_hobby eh, hobby h where eh.fk_hobby_id = h.id and 
-eh.fk_employee_id = e.id)as hobbies from employee e left join employee_salary es on 
-e.id = es.fk_employee_id group by e.id;
+SELECT 
+    CONCAT(e.first_name, ' ', e.last_name) AS Name,
+    SUM(es.salary) AS total,
+    (SELECT 
+            GROUP_CONCAT(DISTINCT h.name)
+        FROM
+            employee_hobby eh,
+            hobby h
+        WHERE
+            eh.fk_hobby_id = h.id
+                AND eh.fk_employee_id = e.id) AS hobbies
+FROM
+    employee e
+        LEFT JOIN
+    employee_salary es ON e.id = es.fk_employee_id
+GROUP BY e.id;
