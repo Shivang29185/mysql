@@ -27,10 +27,12 @@ desc employee_hobby;
 
 -- Inserting data into Tables.
 insert into hobby (id, name) values (101, 'Singing') ;
-insert into hobby (id, name) values (102, 'Dancing, Writing');
-insert into hobby (id, name) values (103, 'Reading, Travelling, Gaming');
-insert into hobby (id, name) values (104, 'Football, Tennis, Drama');
-insert into hobby (id, name) values (105, 'Watching movies, Coding, fashion Designer,Gardning');
+insert into hobby (id, name) values (102, 'Dancing');
+insert into hobby (id, name) values (103, 'Reading');
+insert into hobby (id, name) values (104, 'Football');
+insert into hobby (id, name) values (105, 'Watching movies');
+insert into hobby (id, name) values (106, 'Gardning');
+insert into hobby (id, name) values (107, 'Gamming');
 
 insert into employee(id, first_name, last_name, age, mobile_number, address) values (1, 'Dhruv', 'Acharya', 20, 7775487543, "23- chandkheda");
 insert into employee(id, first_name, last_name, age, mobile_number, address) values (2, 'Ravi', 'Dudhath', 23, 9677655433, "19 - Amerali ");
@@ -52,11 +54,15 @@ insert into employee_salary(id, salary, date, fk_employee_id) values (11, 12000,
 insert into employee_salary(id, salary, date, fk_employee_id) values (12, 14000, '2000-09-13', 5);
 																
 insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (1, 1, 101);
-insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (2, 2, 102);
-insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (3, 3, 103);
-insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (4, 4, 104);
-insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (5, 5, 105);
-
+insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (2, 1, 102);
+insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (3, 1, 103);
+insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (4, 2, 104);
+insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (5, 2, 105);
+insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (6, 3, 102);
+insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (7, 3, 103);
+insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (8, 4, 107);
+insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (9, 4, 104);
+insert into employee_hobby (id, fk_employee_id, fk_hobby_id) values (10, 5, 102);
 
 -- Updating tables data
 update hobby set name = 'Dancing, Writing books' where id = 102;
@@ -86,9 +92,12 @@ select * from employee_salary;
 select * from employee_hobby;
 
 -- Create a select single query to get all employee name, hobby_name in single column
-select first_name from employee union select name from hobby;
+select concat(first_name,last_name) as Name from employee union select name from hobby;
 
 -- Create a select query to get employee name, his/her employee_salary
-select e.first_name, es.salary from employee e, employee_salary es where  e.id = es.fk_employee_id;
+select concat(e.first_name,' ', e.last_name)As Name, es.salary from employee e, employee_salary es where  e.id = es.fk_employee_id group by e.id;
 
 -- Create a select query to get employee name, total salary of employee, hobby name(comma-separated - you need to use subquery for hobby name).
+select concat(e.first_name,' ', e.last_name)as Name,sum(es.salary)as total,(select group_concat(h.name) 
+from employee_hobby eh , hobby h where eh.fk_hobby_id = h.id and eh.fk_employee_id = e.id group by e.id)as hobbies 
+from employee e, employee_salary es where e.id = es.fk_employee_id group by e.id;
